@@ -19,6 +19,11 @@ const text = (() => {
     item__checkbox[1].addEventListener('change', finish);
     item__checkbox[2].addEventListener('change', finish);
 
+    item__button = _items.querySelectorAll('.item__button');
+    item__button[0].addEventListener('click', deleteItem);
+    item__button[1].addEventListener('click', deleteItem);
+    item__button[2].addEventListener('click', deleteItem);
+
     //checkbox = items.getElementsByClassName('.item__checkbox');
     //item = items.getElementsByClassName('.item');
 
@@ -35,7 +40,7 @@ const text = (() => {
   // event handler fyrir það að klára færslu
   function finish(e) {
 
-    daddy=this.parentNode
+    daddy=this.parentNode;
     daddy.classList.toggle('item--done');
   }
 
@@ -54,7 +59,8 @@ const text = (() => {
   // event handler til að eyða færslu
   function deleteItem(e) {
 
-    console.log('halló heimur');
+    mommy=this.parentElement;
+    items.removeChild(mommy)
   }
 
   // hjálparfall til að útbúa element
