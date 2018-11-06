@@ -24,15 +24,21 @@ const text = (() => {
     item__button[1].addEventListener('click', deleteItem);
     item__button[2].addEventListener('click', deleteItem);
 
-    //checkbox = items.getElementsByClassName('.item__checkbox');
-    //item = items.getElementsByClassName('.item');
-
-
     // TODO láta hluti í _items virka
   }
 
   function formHandler(e) {
     e.preventDefault();
+
+    const form = document.querySelector('.form');
+
+    form__input = form.querySelector('.form__input');
+    form__input.addEventListener('input', function () {
+      console.log(form__input.value);
+    });
+
+    form__button = form.querySelector('.form__button');
+    form__button.addEventListener('click', add(form__input.value));
 
     console.log('halló heimur');
   }
@@ -40,7 +46,7 @@ const text = (() => {
   // event handler fyrir það að klára færslu
   function finish(e) {
 
-    daddy=this.parentNode;
+    daddy = this.parentNode;
     daddy.classList.toggle('item--done');
   }
 
@@ -54,17 +60,42 @@ const text = (() => {
 
   // fall sem sér um að bæta við nýju item
   function add(value) {
+
+    const items = document.querySelector('.items');
+
+    jason = el('li', 'item', '0');
+    johnny = el('input', 'item__checkbox', 'change');
+    johnny.setAttribute('type', 'checkbox')
+    johnson = el('span', 'item__text', '0');
+    johnson_jr = document.createTextNode(value);
+    justin = el('button', 'item__button', 'click');
+    justin_jr = document.createTextNode('Eyða');
+
+    items.append(jason);
+    jason.append(johnny,johnson,justin);
+    justin.append(justin_jr);
+    johnson.append(johnson_jr);
+
   }
 
   // event handler til að eyða færslu
   function deleteItem(e) {
 
-    mommy=this.parentElement;
+    mommy = this.parentElement;
     items.removeChild(mommy)
   }
 
   // hjálparfall til að útbúa element
   function el(type, className, clickHandler) {
+
+    const el = document.createElement(type);
+    el.setAttribute('class', className);
+    if (clickHandler == 'click') {
+    el.addEventListener(clickHandler, deleteItem);
+  } else if (clickHandler == 'change') {
+    el.addEventListener(clickHandler, finish);
+  }
+    return el;
   }
 
   return {
