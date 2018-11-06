@@ -39,6 +39,8 @@ const text = (() => {
 
     form__button = form.querySelector('.form__button');
     form__button.addEventListener('click', add(form__input.value));
+    
+    form__input.value = '';
 
     console.log('halló heimur');
   }
@@ -61,21 +63,25 @@ const text = (() => {
   // fall sem sér um að bæta við nýju item
   function add(value) {
 
-    const items = document.querySelector('.items');
+    if (value.trim() != '') {
 
-    jason = el('li', 'item', '0');
-    johnny = el('input', 'item__checkbox', 'change');
-    johnny.setAttribute('type', 'checkbox')
-    johnson = el('span', 'item__text', '0');
-    johnson_jr = document.createTextNode(value);
-    justin = el('button', 'item__button', 'click');
-    justin_jr = document.createTextNode('Eyða');
+      const items = document.querySelector('.items');
 
-    items.append(jason);
-    jason.append(johnny,johnson,justin);
-    justin.append(justin_jr);
-    johnson.append(johnson_jr);
+      parent_el = el('li', '0', 'item', '0');
+      checkbox_el = el('input', 'checkbox', 'item__checkbox', 'change');
+      span_el = el('span', '0', 'item__text', '0');
+      text_el = document.createTextNode(value);
+      button_el = el('button', '0', 'item__button', 'click');
+      button_txt_el = document.createTextNode('Eyða');
 
+      items.append(parent_el);
+      parent_el.append(checkbox_el, span_el, button_el);
+      span_el.append(text_el);
+      button_el.append(button_txt_el);
+
+      } else {
+
+    }
   }
 
   // event handler til að eyða færslu
@@ -86,15 +92,18 @@ const text = (() => {
   }
 
   // hjálparfall til að útbúa element
-  function el(type, className, clickHandler) {
+  function el(element, type, className, clickHandler) {
 
-    const el = document.createElement(type);
+    const el = document.createElement(element);
     el.setAttribute('class', className);
+    if (type != 0) {
+      el.setAttribute('type', type);
+    }
     if (clickHandler == 'click') {
-    el.addEventListener(clickHandler, deleteItem);
-  } else if (clickHandler == 'change') {
-    el.addEventListener(clickHandler, finish);
-  }
+      el.addEventListener(clickHandler, deleteItem);
+    } else if (clickHandler == 'change') {
+      el.addEventListener(clickHandler, finish);
+    }
     return el;
   }
 
