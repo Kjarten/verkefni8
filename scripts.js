@@ -70,9 +70,10 @@ const text = (() => {
     parentEdit.replaceChild(editChild, this);
 
     const item__edit = parentEdit.querySelector('.item__edit');
-    item__edit.addEventListener('keypress', commit);
 
-    this.focus();
+    item__edit.focus();
+
+    item__edit.addEventListener('keypress', commit);
 
   }
 
@@ -123,8 +124,8 @@ const text = (() => {
   // event handler til að eyða færslu
   function deleteItem(e) {
 
-    mommy = this.parentElement;
-    items.removeChild(mommy)
+    let parentDelete = this.parentElement;
+    items.removeChild(parentDelete)
   }
 
   // hjálparfall til að útbúa element
