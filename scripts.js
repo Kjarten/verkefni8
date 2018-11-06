@@ -14,17 +14,17 @@ const text = (() => {
     items = _items;
     _form.addEventListener('submit', formHandler);
 
-    item__checkbox = _items.querySelectorAll('.item__checkbox');
+    const item__checkbox = _items.querySelectorAll('.item__checkbox');
     item__checkbox[0].addEventListener('change', finish);
     item__checkbox[1].addEventListener('change', finish);
     item__checkbox[2].addEventListener('change', finish);
 
-    item__text = _items.querySelectorAll('.item__text');
+    const item__text = _items.querySelectorAll('.item__text');
     item__text[0].addEventListener('click', edit);
     item__text[1].addEventListener('click', edit);
     item__text[2].addEventListener('click', edit);
 
-    item__button = _items.querySelectorAll('.item__button');
+    const item__button = _items.querySelectorAll('.item__button');
     item__button[0].addEventListener('click', deleteItem);
     item__button[1].addEventListener('click', deleteItem);
     item__button[2].addEventListener('click', deleteItem);
@@ -37,7 +37,7 @@ const text = (() => {
 
     const form = document.querySelector('.form');
 
-    form__input = form.querySelector('.form__input');
+    const form__input = form.querySelector('.form__input');
     form__input.addEventListener('input', function () {
       console.log(form__input.value);
     });
@@ -53,22 +53,48 @@ const text = (() => {
   // event handler fyrir það að klára færslu
   function finish(e) {
 
-    daddy = this.parentNode;
-    daddy.classList.toggle('item--done');
+    let parentFinish = this.parentNode;
+
+    parentFinish.classList.toggle('item--done');
   }
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
 
-    //daddy = this.parentNode;
+    let parentEdit = this.parentNode;
+    let txtEdit = this.innerHTML;
 
+    editChild = el('input', 'text', 'item__edit', 'input');
+    editChild.setAttribute("value", txtEdit);
 
+    parentEdit.replaceChild(editChild, this);
+
+    const item__edit = parentEdit.querySelector('.item__edit');
+    item__edit.addEventListener('keypress', commit);
+
+    this.focus();
 
   }
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
-  }
+    if (13 == e.keyCode) {
+
+        let parentCommit = this.parentNode;
+
+        this.addEventListener('input', function () {
+          console.log(this.value);
+        });
+
+        commitChild = el('span', '0', 'item__text', 'click');
+        text_el2 = document.createTextNode(this.value);
+
+        commitChild.append(text_el2);
+
+
+        parentCommit.replaceChild(commitChild, this);
+
+    }  }
 
   // fall sem sér um að bæta við nýju item
   function add(value) {
@@ -79,7 +105,7 @@ const text = (() => {
 
       parent_el = el('li', '0', 'item', '0');
       checkbox_el = el('input', 'checkbox', 'item__checkbox', 'change');
-      span_el = el('span', '0', 'item__text', '0');
+      span_el = el('span', '0', 'item__text', 'click');
       text_el = document.createTextNode(value);
       button_el = el('button', '0', 'item__button', 'click');
       button_txt_el = document.createTextNode('Eyða');
@@ -109,10 +135,12 @@ const text = (() => {
     if (type != 0) {
       el.setAttribute('type', type);
     }
-    if (clickHandler == 'click') {
+    if (className == 'item__button') {
       el.addEventListener(clickHandler, deleteItem);
-    } else if (clickHandler == 'change') {
+    } else if (className == 'item__checkbox') {
       el.addEventListener(clickHandler, finish);
+    } else if (className == 'item__text') {
+      el.addEventListener(clickHandler, edit);
     }
     return el;
   }
