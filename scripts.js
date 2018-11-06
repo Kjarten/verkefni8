@@ -19,6 +19,11 @@ const text = (() => {
     item__checkbox[1].addEventListener('change', finish);
     item__checkbox[2].addEventListener('change', finish);
 
+    item__text = _items.querySelectorAll('.item__text');
+    item__text[0].addEventListener('click', edit);
+    item__text[1].addEventListener('click', edit);
+    item__text[2].addEventListener('click', edit);
+
     item__button = _items.querySelectorAll('.item__button');
     item__button[0].addEventListener('click', deleteItem);
     item__button[1].addEventListener('click', deleteItem);
@@ -39,7 +44,7 @@ const text = (() => {
 
     form__button = form.querySelector('.form__button');
     form__button.addEventListener('click', add(form__input.value));
-    
+
     form__input.value = '';
 
     console.log('halló heimur');
@@ -54,6 +59,11 @@ const text = (() => {
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
+
+    //daddy = this.parentNode;
+
+
+
   }
 
   // event handler fyrir það að klára að breyta færslu
